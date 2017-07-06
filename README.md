@@ -1,5 +1,5 @@
 # Torrent-vod-maker
-Small Python script to create a torrent file for video files in a directory
+Small Python 3 script to create a torrent file for video files in a directory
 
 Requires the `dottorrent` and `datetime` libraries
 

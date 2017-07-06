@@ -1,15 +1,14 @@
 import os
+import sys
 from dottorrent import Torrent # pip install dottorrent
 from datetime import datetime # pip install datetime
 
 trackerList = ['udp://tracker.openbittorrent.com:80/announce'] # Add trackers here
 videoFormats = ['flv', 'mp4', 'webm', 'mkv', 'ogv', 'ogg', 'avi'] # Add vod file formats here
-rootDir = "Vods/" # The root directory for the files
+rootDir = "Vd/" # The root directory for the files
 
 if not os.path.isdir(rootDir):
-	print("Your rootDir doesn't exist")
-	input("Press any key to continue...")
-	exit()
+	sys.exit("rootDir is not a valid directory")
 
 for root, directories, files in os.walk(rootDir): 
 	for file in files:

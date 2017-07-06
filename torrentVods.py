@@ -8,6 +8,8 @@ rootDir = "Vods/" # The root directory for the files
 
 if not os.path.isdir(rootDir):
 	print("Your rootDir doesn't exist")
+	input("Press any key to continue...")
+	exit()
 
 for root, directories, files in os.walk(rootDir): 
 	for file in files:

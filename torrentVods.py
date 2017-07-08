@@ -17,7 +17,9 @@ for root, directories, files in os.walk(rootDir):
 		if fileExtension != '.torrent' and ((os.path.splitext(file)[0] + '.torrent') not in files) and file.endswith(tuple(videoFormats)):
 			# Torrent library documentation can be found here https://dottorrent.readthedocs.io/en/latest/library.html
 			torrent = Torrent(filePath, trackers = trackerList, creation_date = datetime.now(), comment = "Jefmajor vod " + fileName, private = False)
-			torrent.generate()
+			if not torrent.generate():
+				print("Error generating torrent for " + filePath + fileExtension)
+				continue
 			
 			torrentPath = fileName + ".torrent" # Just adjusting the .torrent file name to be file - extension + .torrent
 			

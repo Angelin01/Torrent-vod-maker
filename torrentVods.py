@@ -5,16 +5,16 @@ from datetime import datetime # pip install datetime
 
 trackerList = ['udp://tracker.openbittorrent.com:80/announce'] # Add trackers here
 videoFormats = ['flv', 'mp4', 'webm', 'mkv', 'ogv', 'ogg', 'avi'] # Add vod file formats here
-rootDir = "Vd/" # The root directory for the files
+rootDir = "Vods/" # The root directory for the files
 
 if not os.path.isdir(rootDir):
 	sys.exit("rootDir is not a valid directory")
 
 for root, directories, files in os.walk(rootDir): 
 	for file in files:
-		if file.endswith(tuple(videoFormats)):
-			filePath = rootDir + os.path.join(os.path.relpath(root, rootDir), file)
-			fileName, fileExtension = os.path.splitext(filePath)
+		filePath = rootDir + os.path.join(os.path.relpath(root, rootDir), file)
+		fileName, fileExtension = os.path.splitext(filePath)
+		if fileExtension != '.torrent' and ((os.path.splitext(file)[0] + '.torrent') not in files) and file.endswith(tuple(videoFormats)):
 			# Torrent library documentation can be found here https://dottorrent.readthedocs.io/en/latest/library.html
 			torrent = Torrent(filePath, trackers = trackerList, creation_date = datetime.now(), comment = "Jefmajor vod " + fileName, private = False)
 			torrent.generate()
@@ -25,4 +25,7 @@ for root, directories, files in os.walk(rootDir):
 			torrentFile = open(torrentPath, 'wb')
 			torrent.save(torrentFile)
 			torrentFile.close()
+			print("Created .torrent for " + fileName + fileExtension)
+		else:
+			print("File " + fileName + fileExtension + " is either a .torrent, has a respective .torrent or isn't of the right format, ignoring")
 			
